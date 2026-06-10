@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generative AI: From Variational Autoencoders to World Models: Graduate Course Syllabus</title>
+<style>
+  :root{
+    --ink:#111418; --soft:#2c3138; --muted:#5a626c; --accent:#14385c;
+    --rule:#d1d4d8; --codebg:#f4f5f7;
+  }
+  html{background:#fff;}
+  body{
+    font-family:"Charter","Iowan Old Style","Source Serif Pro",Georgia,"Times New Roman",serif;
+    color:var(--ink); font-size:11pt; line-height:1.55;
+    max-width:720px; margin:0 auto; padding:48px 24px 72px;
+    text-align:justify; hyphens:auto;
+  }
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:9.5pt; background:var(--codebg); padding:0 3px; border-radius:2px;}
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .titleblock{text-align:center; margin-bottom:8px;}
+  h1{font-size:19pt; font-weight:600; line-height:1.25; margin:0 0 6px;}
+  .courseinfo{font-size:10pt; color:var(--muted); margin:0 0 4px;}
+  .courseinfo b{color:var(--soft); font-weight:600;}
+
+  h2{font-size:13pt; font-weight:700; color:var(--ink); margin:28px 0 8px; text-align:left;}
+  h3{font-size:11.5pt; font-weight:700; margin:18px 0 6px; text-align:left;}
+
+  p{margin:0; text-indent:1.4em;}
+  h2+p, h3+p, .tablewrap+p, figure+p, ul+p, ol+p, .abstract+p, table+p{text-indent:0;}
+  ul,ol{margin:6px 0 6px 1.6em; padding:0; text-align:left;}
+  li{margin:2px 0;}
+
+  .abstract{margin:22px auto 6px; width:92%;}
+  .abstract .ahead{text-align:center; font-variant:small-caps; letter-spacing:.06em; font-weight:600; font-size:11pt; margin-bottom:6px;}
+  .abstract .abody{font-size:10pt; text-align:justify;}
+
+  .tablewrap{margin:14px 0 6px;}
+  table{border-collapse:collapse; width:100%; font-size:9.5pt; line-height:1.4;}
+  caption{caption-side:top; font-size:9.5pt; text-align:left; padding-bottom:5px; color:var(--soft);}
+  caption b{color:var(--ink);}
+  thead th{border-top:1.5px solid var(--ink); border-bottom:1px solid var(--ink); padding:5px 8px; text-align:left; font-weight:700;}
+  tbody td{padding:6px 8px; vertical-align:top; text-align:left;}
+  tbody tr:last-child td{border-bottom:1.5px solid var(--ink);}
+  td.wk, th.wk{white-space:nowrap; width:1%;}
+  tr.pres td{background:#eef2f7;}
+  tr.pres td:first-child{font-weight:700; color:var(--accent);}
+  .chlist{margin:3px 0 0; color:var(--muted); font-size:9pt;}
+  .topic{font-weight:600;}
+
+  .hr{border:0; border-top:1px solid var(--rule); margin:26px 0;}
+  .refs p{font-size:9pt; text-indent:-1.6em; padding-left:1.6em; margin:0 0 6px; text-align:left;}
+  .footer{margin-top:40px; font-size:9pt; color:var(--muted); text-align:center;}
+  @media print{ body{padding:0;} a{color:var(--ink);} }
+</style>
+</head>
+<body>
+
+<div class="titleblock">
+  <h1>Generative AI: From Variational Autoencoders to World Models</h1>
+  <p class="courseinfo"><b>Level:</b> Graduate &nbsp;·&nbsp; <b>Duration:</b> 13 weeks, one 3-hour session per week &nbsp;·&nbsp; <b>Credits:</b> 3</p>
+  <p class="courseinfo"><b>Instructor:</b> Dr. Alexander (Sasha) Apartsin &nbsp;·&nbsp; <b>Course texts:</b> <a href="https://udlbook.github.io/udlbook/">Understanding Deep Learning</a> and <a href="https://probml.github.io/pml-book/book2.html">Probabilistic Machine Learning: Advanced Topics</a> (both open access)</p>
+</div>
+
+<div class="abstract">
+  <div class="ahead">Course Description</div>
+  <div class="abody">
+    This course is an advanced, research-oriented treatment of deep generative modeling, organized around four pillars: variational autoencoders, energy-based and score-based models, diffusion models, and world models. Building directly on a prior graduate course in deep learning, it develops the probabilistic foundations (latent-variable models, the evidence lower bound, score matching) and follows them into the modern generative stack: denoising diffusion and its variational and score-based derivations, the score-SDE framework and sampler design, classifier-free guidance, latent diffusion and diffusion transformers, flow matching, and few-step generation via distillation. The final third of the course turns to world models: latent dynamics models that learn behavior in imagination, large-scale generative world simulators for video, driving, and interactive environments, and predictive-embedding architectures such as JEPA. The centerpiece of the course is a semester-long research project: each team formulates an original research question, designs and runs experiments, and reports results in three milestone presentations (proposal, interim, final) and a documented GitHub repository. Each student leaves the course with a demonstrable, novel, technically deep, research-oriented project added to their portfolio.
+  </div>
+</div>
+
+<h2>Prerequisites</h2>
+<p>Students are assumed to have completed an <b>advanced graduate course in deep learning</b>. In particular, the following are treated as known and are not retaught: backpropagation and optimization (SGD, Adam, learning-rate schedules), regularization, CNNs, RNNs, and Transformers, training and debugging deep networks at scale, and comfortable fluency in Python and PyTorch. Graduate-level probability and linear algebra are essential and used from Week 1: multivariate Gaussians, change of variables, KL divergence and other f-divergences, and Monte Carlo estimation. Prior exposure to ordinary and stochastic differential equations is helpful but not required; the needed material is developed in Weeks 6 and 7. Students missing the deep-learning prerequisite should first work through Chapters 1 to 12 of the course text [<a href="#references">1</a>] independently.</p>
+
+<h2>Learning Outcomes</h2>
+<p>On completing the course, students will be able to:</p>
+<ul>
+  <li>Derive the core training objectives of deep generative modeling, including the evidence lower bound, score matching and denoising score matching, the DDPM variational bound, and flow-matching losses, and implement them from scratch in PyTorch.</li>
+  <li>Explain how VAEs, energy-based models, score-based models, diffusion models, and flows relate as a single family of methods, and justify the choice among them for a given application.</li>
+  <li>Design, train, and sample from modern diffusion systems: noise schedules and parameterizations, deterministic and stochastic samplers, classifier-free guidance, latent diffusion, diffusion transformers, and few-step generation via distillation and consistency training.</li>
+  <li>Build and evaluate world models across the three dominant paradigms: latent dynamics models for control, generative world simulators, and predictive-embedding (JEPA-style) architectures.</li>
+  <li>Evaluate generative models credibly, including likelihood-based and sample-based metrics, their failure modes, and evaluation protocols for world models (physical consistency, controllability, long-horizon coherence).</li>
+  <li>Conduct and communicate original research: formulate a hypothesis, design controlled experiments, analyze results, and present them in talks and a documented project repository.</li>
+  <li>Leave the course with a demonstrable, novel, technically deep, research-oriented project added to their portfolio, published as a documented GitHub repository.</li>
+</ul>
+
+<h2>Course Format</h2>
+<p>The course consists of lectures and student presentations. Ten sessions are lectures on the week's topic, with the listed readings to be read before class. The remaining three sessions (Weeks 5, 8, and 13) are dedicated entirely to student presentations of the research projects: proposal, interim, and final. In all three, teams present and receive in-class feedback from the instructor and peers.</p>
+
+<h2>Research Project</h2>
+<p>The project is the core deliverable of the course and is explicitly <b>research-oriented</b>: the goal is a novel, defensible empirical or methodological contribution. Students work in teams of two. Each team is required to: (i) <b>formulate a novel research problem</b> connected to the course material, positioned against related work and not already answered in the literature; (ii) <b>source suitable datasets or generate synthetic data</b> where no adequate dataset exists, with the data collection or generation methodology documented and justified; and (iii) design and run controlled experiments that answer the problem with evidence. Significant novelty is a hard requirement and is assessed at the proposal stage; projects re-implementing an existing system or reproducing a published result without a new question will not be approved.</p>
+<p>Milestones, all presented in class:</p>
+<ul>
+  <li><b>Project proposal (Week 5).</b> A talk covering the research question and hypothesis, why it matters, related work, proposed method, experimental design (datasets, models, baselines, metrics), and a risk plan. Teams receive in-class feedback from the instructor and peers.</li>
+  <li><b>Interim presentation (Week 8).</b> A talk with first experimental results: what has been run, what the early evidence shows, what changed relative to the proposal, and the plan for the remaining weeks. Teams receive in-class feedback. Negative or surprising early results are expected at this stage; the grade rewards sound diagnosis and iteration, not polished numbers.</li>
+  <li><b>Final presentation (Week 13).</b> A conference-style talk plus questions, covering the contribution, method, experiments, and conclusions, with in-class feedback from the instructor and peers.</li>
+  <li><b>Project repository (one week after Week 13).</b> A GitHub repository containing the complete project: code, experiment configurations and result files, and the written report and documentation (README, problem statement and related work, method, data sourcing or synthetic-data generation, results, and reproduction instructions). The repository is the lasting portfolio artifact of the course: a demonstrable, novel, technically deep, research-oriented project.</li>
+</ul>
+
+<h2>Grading</h2>
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Component</th><th>Weight</th><th>Due</th></tr></thead>
+  <tbody>
+    <tr><td>Proposal presentation</td><td>10%</td><td>Week 5</td></tr>
+    <tr><td>Interim presentation</td><td>20%</td><td>Week 8</td></tr>
+    <tr><td>Final presentation</td><td>20%</td><td>Week 13</td></tr>
+    <tr><td>Project repository: code, text, and documentation (GitHub)</td><td>50%</td><td>One week after Week 13</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Weekly Schedule</h2>
+<p>Readings are research papers (linked) plus background chapters in the course texts [<a href="#references">1</a>, <a href="#references">2</a>]; read the papers before class. Presentation weeks are highlighted.</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th class="wk">Week</th><th>Topic and readings</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="wk">1</td>
+      <td><span class="topic">Foundations of Deep Generative Modeling</span><br>
+      What it means to model a data distribution: the generative-model landscape (autoregressive models, normalizing flows, GANs, VAEs, energy-based, score-based, and diffusion models, world models) and the trade-offs among likelihood, sample quality, and inference speed; maximum likelihood and divergences; why evaluating generative models is hard (likelihood, FID, precision-recall). Course overview and project kickoff.
+      <div class="chlist">Readings: <a href="https://arxiv.org/abs/2103.04922">Bond-Taylor et al. (2021), Deep Generative Modelling: A Comparative Review</a>. Background: [<a href="#references">2</a>] Ch.&nbsp;20.</div></td>
+    </tr>
+    <tr>
+      <td class="wk">2</td>
+      <td><span class="topic">Variational Autoencoders I: Latent-Variable Models &amp; the ELBO</span><br>
+      Latent-variable models and intractable posteriors; variational inference and the evidence lower bound, derived two ways; the reparameterization trick and amortized inference; Gaussian encoders and decoders; implementation patterns and the rate-distortion view of the ELBO.
+      <div class="chlist">Readings: <a href="https://arxiv.org/abs/1312.6114">Kingma &amp; Welling (2014), Auto-Encoding Variational Bayes</a>; <a href="https://arxiv.org/abs/1401.4082">Rezende et al. (2014), Stochastic Backpropagation and Approximate Inference</a>; <a href="https://arxiv.org/abs/1906.02691">Kingma &amp; Welling (2019), An Introduction to Variational Autoencoders</a>. Background: [<a href="#references">1</a>] Ch.&nbsp;17; [<a href="#references">2</a>] Ch.&nbsp;21.</div></td>
+    </tr>
+    <tr>
+      <td class="wk">3</td>
+      <td><span class="topic">Variational Autoencoders II: Hierarchical, Discrete &amp; Disentangled Latents</span><br>
+      Posterior collapse and its mitigations; β-VAE and disentangled representations; hierarchical VAEs (NVAE, very deep VAEs); VQ-VAE and discrete codebook latents; VAEs as infrastructure: the autoencoders inside latent diffusion and the tokenizers inside world models.
+      <div class="chlist">Readings: <a href="https://openreview.net/forum?id=Sy2fzU9gl">Higgins et al. (2017), β-VAE</a>; <a href="https://arxiv.org/abs/1711.00937">van den Oord et al. (2017), Neural Discrete Representation Learning (VQ-VAE)</a>; <a href="https://arxiv.org/abs/2007.03898">Vahdat &amp; Kautz (2020), NVAE</a>; <a href="https://arxiv.org/abs/2011.10650">Child (2021), Very Deep VAEs</a>.</div></td>
+    </tr>
+    <tr>
+      <td class="wk">4</td>
+      <td><span class="topic">Energy-Based Models &amp; Score Matching</span><br>
+      Energy-based models and the partition-function problem; the score function as the object to learn; score matching and denoising score matching; sampling with Langevin dynamics; noise-conditional score networks and annealed Langevin sampling: generative modeling without normalized likelihoods. Proposal clinic: experimental-design checklist for the project proposals.
+      <div class="chlist">Readings: <a href="https://jmlr.org/papers/v6/hyvarinen05a.html">Hyvärinen (2005), Estimation of Non-Normalized Statistical Models by Score Matching</a>; <a href="https://doi.org/10.1162/NECO_a_00142">Vincent (2011), A Connection Between Score Matching and Denoising Autoencoders</a>; <a href="https://arxiv.org/abs/1907.05600">Song &amp; Ermon (2019), Generative Modeling by Estimating Gradients of the Data Distribution</a>; <a href="https://yang-song.net/blog/2021/score/">Song (2021), score-based generative modeling (blog tutorial)</a>. Background: [<a href="#references">2</a>] Ch.&nbsp;24.</div></td>
+    </tr>
+    <tr class="pres">
+      <td class="wk">5</td>
+      <td><span class="topic">Student Presentations I: Project Proposals</span><br>
+      Each team presents its research question, related work, method, and experimental design, and receives in-class feedback from the instructor and peers.</td>
+    </tr>
+    <tr>
+      <td class="wk">6</td>
+      <td><span class="topic">Denoising Diffusion Probabilistic Models</span><br>
+      The forward noising process and the learned reverse process; DDPM as variational inference and its ELBO; the equivalence with denoising score matching; noise schedules and parameterizations (ε-, x₀-, and v-prediction); DDIM and deterministic sampling; U-Net denoiser architecture; diffusion models as deep hierarchical VAEs.
+      <div class="chlist">Readings: <a href="https://arxiv.org/abs/1503.03585">Sohl-Dickstein et al. (2015), Deep Unsupervised Learning using Nonequilibrium Thermodynamics</a>; <a href="https://arxiv.org/abs/2006.11239">Ho et al. (2020), Denoising Diffusion Probabilistic Models</a>; <a href="https://arxiv.org/abs/2010.02502">Song et al. (2021), Denoising Diffusion Implicit Models</a>; <a href="https://arxiv.org/abs/2208.11970">Luo (2022), Understanding Diffusion Models: A Unified Perspective</a>. Background: [<a href="#references">1</a>] Ch.&nbsp;18; [<a href="#references">2</a>] Ch.&nbsp;25.</div></td>
+    </tr>
+    <tr>
+      <td class="wk">7</td>
+      <td><span class="topic">Score-Based SDEs, Samplers &amp; Guidance</span><br>
+      The continuous-time view that unifies score-based and diffusion models: variance-exploding and variance-preserving SDEs, the reverse-time SDE, and the probability-flow ODE with exact likelihoods; sampler design (predictor-corrector, higher-order ODE solvers, the EDM design space); conditional generation via classifier guidance and classifier-free guidance; diffusion priors for inverse problems.
+      <div class="chlist">Readings: <a href="https://arxiv.org/abs/2011.13456">Song et al. (2021), Score-Based Generative Modeling through SDEs</a>; <a href="https://arxiv.org/abs/2105.05233">Dhariwal &amp; Nichol (2021), Diffusion Models Beat GANs on Image Synthesis</a>; <a href="https://arxiv.org/abs/2207.12598">Ho &amp; Salimans (2022), Classifier-Free Diffusion Guidance</a>; <a href="https://arxiv.org/abs/2206.00364">Karras et al. (2022), Elucidating the Design Space of Diffusion-Based Generative Models</a>.</div></td>
+    </tr>
+    <tr class="pres">
+      <td class="wk">8</td>
+      <td><span class="topic">Student Presentations II: Interim Progress</span><br>
+      Each team presents first experimental results, diagnosis of what is and is not working, deviations from the proposal, and the plan for the final stretch, and receives in-class feedback from the instructor and peers.</td>
+    </tr>
+    <tr>
+      <td class="wk">9</td>
+      <td><span class="topic">Diffusion at Scale: Latent Diffusion, Transformers &amp; Flow Matching</span><br>
+      Latent diffusion and text-to-image systems; conditioning via cross-attention; diffusion transformers (DiT) and what scales; flow matching and rectified flow as the modern training recipe; few-step generation via distillation and consistency models; evaluating large-scale image and video generators.
+      <div class="chlist">Readings: <a href="https://arxiv.org/abs/2112.10752">Rombach et al. (2022), High-Resolution Image Synthesis with Latent Diffusion Models</a>; <a href="https://arxiv.org/abs/2212.09748">Peebles &amp; Xie (2023), Scalable Diffusion Models with Transformers</a>; <a href="https://arxiv.org/abs/2210.02747">Lipman et al. (2023), Flow Matching for Generative Modeling</a>; <a href="https://arxiv.org/abs/2303.01469">Song et al. (2023), Consistency Models</a>; <a href="https://arxiv.org/abs/2403.03206">Esser et al. (2024), Scaling Rectified Flow Transformers (Stable Diffusion 3)</a>.</div></td>
+    </tr>
+    <tr>
+      <td class="wk">10</td>
+      <td><span class="topic">World Models I: Latent Dynamics &amp; Learning in Imagination</span><br>
+      What a world model is and why agents need one; the VAE+RNN world model of Ha and Schmidhuber; latent dynamics models and the recurrent state-space model; planning with learned models (PlaNet); learning behaviors inside the dream: the Dreamer line through DreamerV3.
+      <div class="chlist">Readings: <a href="https://arxiv.org/abs/1803.10122">Ha &amp; Schmidhuber (2018), World Models</a>; <a href="https://arxiv.org/abs/1811.04551">Hafner et al. (2019), Learning Latent Dynamics for Planning from Pixels (PlaNet)</a>; <a href="https://arxiv.org/abs/1912.01603">Hafner et al. (2020), Dream to Control (Dreamer)</a>; <a href="https://arxiv.org/abs/2301.04104">Hafner et al. (2023), Mastering Diverse Domains through World Models (DreamerV3)</a>.</div></td>
+    </tr>
+    <tr>
+      <td class="wk">11</td>
+      <td><span class="topic">World Models II: Generative World Simulators</span><br>
+      Scaling world models with generative video: action-conditioned video prediction; driving world models (GAIA-1); foundation world models and interactive environments (Genie, Genie&nbsp;2, UniSim, Cosmos); diffusion world models for agents (DIAMOND); the "video generation as world simulation" question (Sora) and what generative simulators can and cannot do.
+      <div class="chlist">Readings: <a href="https://arxiv.org/abs/2309.17080">Hu et al. (2023), GAIA-1: A Generative World Model for Autonomous Driving</a>; <a href="https://arxiv.org/abs/2402.15391">Bruce et al. (2024), Genie: Generative Interactive Environments</a>; <a href="https://arxiv.org/abs/2310.06114">Yang et al. (2023), Learning Interactive Real-World Simulators (UniSim)</a>; <a href="https://arxiv.org/abs/2405.12399">Alonso et al. (2024), Diffusion for World Modeling (DIAMOND)</a>; <a href="https://openai.com/index/video-generation-models-as-world-simulators/">OpenAI (2024), Video Generation Models as World Simulators (Sora)</a>; <a href="https://arxiv.org/abs/2501.03575">NVIDIA (2025), Cosmos World Foundation Model Platform</a>.</div></td>
+    </tr>
+    <tr>
+      <td class="wk">12</td>
+      <td><span class="topic">World Models III: Predictive Representations, JEPA &amp; Research Frontiers</span><br>
+      Generative versus predictive-embedding world models; joint-embedding predictive architectures: I-JEPA, V-JEPA, and V-JEPA&nbsp;2 for understanding, prediction, and planning; decoder-free latent world models for control (TD-MPC2); evaluating world models: physical consistency, controllability, long-horizon coherence; open problems: memory, 3D and physics grounding, and world models for embodied agents and reasoning. Course synthesis and final-presentation clinic.
+      <div class="chlist">Readings: <a href="https://openreview.net/forum?id=BZ5a1r-kVsf">LeCun (2022), A Path Towards Autonomous Machine Intelligence</a>; <a href="https://arxiv.org/abs/2301.08243">Assran et al. (2023), Self-Supervised Learning from Images with a Joint-Embedding Predictive Architecture (I-JEPA)</a>; <a href="https://arxiv.org/abs/2404.08471">Bardes et al. (2024), Revisiting Feature Prediction for Learning Visual Representations from Video (V-JEPA)</a>; <a href="https://arxiv.org/abs/2506.09985">Assran et al. (2025), V-JEPA&nbsp;2: Self-Supervised Video Models Enable Understanding, Prediction and Planning</a>; <a href="https://arxiv.org/abs/2310.16828">Hansen et al. (2024), TD-MPC2: Scalable, Robust World Models for Continuous Control</a>.</div></td>
+    </tr>
+    <tr class="pres">
+      <td class="wk">13</td>
+      <td><span class="topic">Student Presentations III: Final Project Presentations</span><br>
+      Conference-style final talks with in-class feedback: contribution, method, experiments, results, and limitations. Project repositories (code, text, and documentation) due one week later.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Policies</h2>
+<h3>Use of AI tools</h3>
+<p>Using LLMs and coding agents in your project work is encouraged and is itself a skill the course develops. Two rules apply. First, significant novelty: whatever tools are used, the submitted work must constitute a significant novel contribution by the team, in the problem formulation, the experimental design, and the findings; work whose substance could be produced by a single prompt to an off-the-shelf model does not meet the bar. Second, accountability: you are fully responsible for the correctness of every claim, number, and citation you submit, regardless of which tool produced it. Hallucinated references or unverified AI-generated results are treated as academic integrity violations.</p>
+<h3>Collaboration and integrity</h3>
+<p>Discussion across teams is encouraged; code, experiments, and writing must be the team's own. All experimental results reported in milestones and the repository documentation must be backed by runnable artifacts in the team's repository.</p>
+<hr class="hr">
+<h2 id="references">References</h2>
+<div class="refs">
+<p>[1] S. J. D. Prince, <em>Understanding Deep Learning</em>. MIT Press, 2023. Open access online at <a href="https://udlbook.github.io/udlbook/">https://udlbook.github.io/udlbook/</a>. Chapters 17 (VAEs) and 18 (diffusion models) are the primary background chapters.</p>
+<p>[2] K. P. Murphy, <em>Probabilistic Machine Learning: Advanced Topics</em>. MIT Press, 2023. Open access online at <a href="https://probml.github.io/pml-book/book2.html">https://probml.github.io/pml-book/book2.html</a>. Part IV (Generation) covers VAEs, energy-based models, and diffusion.</p>
+<h3 style="font-size:9.5pt; margin:10px 0 4px;">Supplementary books and resources</h3>
+<p>[3] J. M. Tomczak, <em>Deep Generative Modeling</em>, 2nd ed. Springer, 2024. Author page: <a href="https://jmtomczak.github.io">https://jmtomczak.github.io</a>.</p>
+<p>[4] Stanford CS236, <em>Deep Generative Models</em>: lecture notes and slides at <a href="https://deepgenerativemodels.github.io/">https://deepgenerativemodels.github.io/</a>.</p>
+<p>[5] Y. Song, <em>Generative Modeling by Estimating Gradients of the Data Distribution</em> (tutorial): <a href="https://yang-song.net/blog/2021/score/">https://yang-song.net/blog/2021/score/</a>.</p>
+<p>[6] L. Weng, <em>What Are Diffusion Models?</em> (tutorial): <a href="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/">https://lilianweng.github.io/posts/2021-07-11-diffusion-models/</a>.</p>
+<p>[7] Google DeepMind, <em>Genie 2: A Large-Scale Foundation World Model</em> (technical blog): <a href="https://deepmind.google/discover/blog/genie-2-a-large-scale-foundation-world-model/">https://deepmind.google/discover/blog/genie-2-a-large-scale-foundation-world-model/</a>.</p>
+</div>
+<div class="footer">Generative AI: From Variational Autoencoders to World Models · 13-week graduate course</div>
+
+</body>
+</html>
